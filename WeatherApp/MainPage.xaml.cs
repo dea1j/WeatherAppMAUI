@@ -2,23 +2,30 @@
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
-
+	RestService _restService;
 	public MainPage()
 	{
 		InitializeComponent();
+		_restService = new RestService();
 	}
 
-	//private void OnCounterClicked(object sender, EventArgs e)
-	//{
-	//	count++;
+	async void OnGetWeatherButtonClicked(object sender, EventArgs e) {
+		if (!string.IsNullOrWhiteSpace(_cityEntry.Text))
+		{
+			WeatherData weatherData = await _restService.
+				GetWeatherData(GenerateRequestURL(Constants.OpenWeatherMapEndpoint));
 
-	//	if (count == 1)
-	//		CounterBtn.Text = $"Clicked {count} time";
-	//	else
-	//		CounterBtn.Text = $"Clicked {count} times";
+			BindingContext = weatherData;
+		}
+	}
 
-	//	SemanticScreenReader.Announce(CounterBtn.Text);
-	//}
+	string GenerateRequestURL(string endpoint)
+	{
+		string requestUri = endpoint;
+        requestUri += $"?q={_cityEntry.Text}";
+		requestUri += "&units=imperial";
+		requestUri += $"&APPID={Constants.OpenWeatherMapApiKey}";
+		return requestUri;
+	}
 }
 
