@@ -11,7 +11,6 @@ namespace WeatherApp
     {
         [JsonProperty("name")]
         public string Title { get; set; }
-
         [JsonProperty("coord")]
         public Coord Coord { get; set; }
 

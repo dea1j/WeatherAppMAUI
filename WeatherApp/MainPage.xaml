@@ -86,7 +86,7 @@
                 TextColor="White" />
             <Label 
                 FontSize="12"
-                Text="June 15,10:00AM"
+                Text="{Binding Dt, Converter={StaticResource longToDateTimeConverter}}"
                 HorizontalOptions="Center"
                 TextColor="White"/>
 
